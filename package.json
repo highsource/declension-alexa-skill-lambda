@@ -1,0 +1,32 @@
+{
+	"name": "declension-alexa-skill-lambda",
+	"version": "1.0.0",
+	"description": "Alexa Declension Skill - Lambda",
+	"main": "index.js",
+	"keywords": [
+		"alexa",
+		"skill",
+		"lambda",
+		"declension"
+	],
+	"bugs": {
+		"url": "http://github.com/highsource/declension-alexa-skill-lambda/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/highsource/declension-alexa-skill-lambda.git"
+	},
+	"licenses": [
+		{
+			"type": "GPL-3.0",
+			"url": "http://github.com/highsource/declension-alexa-skill-lambda/raw/master/LICENSE"
+		}
+	],
+	"author": {
+		"name": "Alexey Valikov",
+		"url": "http://github.com/highsource"
+	},
+	"dependencies": {
+		"alexa-sdk": "^1.0.25"
+	}
+}

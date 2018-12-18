@@ -1,2 +1,3 @@
-# declension-alexa-skill-lambda
-Alexa Declension Skill - Lambda 
+# Alexa Declension Skill - Lambda Function
+
+Lambda function for the Alexa Declension Skill.
