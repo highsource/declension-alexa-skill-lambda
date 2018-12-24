@@ -28,5 +28,11 @@
 	},
 	"dependencies": {
 		"alexa-sdk": "^1.0.25"
+	},
+	"devDependencies": {
+		"nodeunit": "0.x.x"
+	},
+	"scripts" : {
+		"test" : "nodeunit tests.js"
 	}
 }
