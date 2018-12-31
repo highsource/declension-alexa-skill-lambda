@@ -69,7 +69,7 @@ module.exports =
 				);
 				test.done();
 			},
-			"Seite - eine singulare Form": function(test) {
+			"Seite - eine plurale Form": function(test) {
 				test.equal(query('Seite'),
 					'Singular, feminin: die Seite, der Seite, der Seite, die Seite.' + 
 					' ' +
@@ -77,7 +77,7 @@ module.exports =
 				);
 				test.done();
 			},
-			"Ross - zwei singulare Formen": function(test) {
+			"Ross - zwei plurale Formen": function(test) {
 				test.equal(query('Ross'),
 					'Singular, sächlich: das Ross, des Rosses, dem Ross oder dem Rosse, das Ross.' + 
 					' ' +
@@ -87,6 +87,32 @@ module.exports =
 				);
 				test.done();
 			},
+			"Kumpel - drei plurale Formen": function(test) {
+				test.equal(query('Kumpel'),
+					'Singular, maskulin: der Kumpel, des Kumpels, dem Kumpel, den Kumpel.' + 
+					' ' +
+					'Plural: die Kumpels, der Kumpels, den Kumpels, die Kumpels.' +
+					' Alternative: ' +
+					'Plural: die Kumpeln, der Kumpeln, den Kumpeln, die Kumpeln.' +
+					' Alternative: ' +
+					'Plural: die Kumpel, der Kumpel, den Kumpeln, die Kumpel.'
+				);
+				test.done();
+			},
+			"Staat - vier plurale Formen": function(test) {
+				test.equal(query('Staat'),
+					'Singular, maskulin: der Staat, des Staats oder des Staates, dem Staat oder dem Staate, den Staat.' + 
+					' ' +
+					'Plural: die Stäte, der Stäte, den Stäten, die Stäte.' +
+					' Alternative: ' +
+					'Plural: die Staat, der Staat, den Staaten, die Staat.' +
+					' Alternative: ' +
+					'Plural: die Staaten, der Staaten, den Staaten, die Staaten.' +
+					' Alternative: ' +
+					'Plural: die Staate, der Staate, den Staaten, die Staate.'
+				);
+				test.done();
+			}
 		}
 	}
 }

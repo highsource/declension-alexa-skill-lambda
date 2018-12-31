@@ -164,13 +164,13 @@ for (var index = 0; index < dataset.length; index++) {
 		else if (entry.plural.length === 1) {
 			console.log("Word " + entry.word + " has 1 plural form.");
 		}
-		else */
 		else if (entry.plural.length === 2) {
 			console.log("Word " + entry.word + " has 2 plural forms.");
 		}
 		else if (entry.plural.length === 3) {
 			console.log("Word " + entry.word + " has 3 plural forms.");
 		}
+*/
 		else if (entry.plural.length === 4) {
 			console.log("Word " + entry.word + " has 4 plural forms.");
 		}
