@@ -30,6 +30,14 @@ const GRAMMATICAL_GENDER_ARTICLES = {
 	}
 };
 
+const PLURAL_ARTICLES = {
+	"nominative" : "die",
+	"genitive" : "der",
+	"dative" : "den",
+	"accusative" : "die"
+};
+
+
 
 exports.handler = function(event, context, callback) {
 	var alexa = Alexa.handler(event, context);
@@ -60,10 +68,26 @@ var renderSingularInflectionGroup = function(inflectionGroup) {
 	var articles = GRAMMATICAL_GENDER_ARTICLES[gender];
 	console.log(suffixes);
 
-	text = text + ': ' + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
-	text = text + ', ' + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
-	text = text + ', ' + renderWordForm(articles['dative'], root, (suffixes.dative || [""]));
-	text = text + ', ' + renderWordForm(articles['accusative'], root, (suffixes.accusative || [""]));
+	text = text + ": " + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
+	text = text + ", " + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
+	text = text + ", " + renderWordForm(articles['dative'], root, (suffixes.dative || [""]));
+	text = text + ", " + renderWordForm(articles['accusative'], root, (suffixes.accusative || [""]));
+	text = text + ".";
+	return text;
+};
+
+var renderPluralInflectionGroup = function(inflectionGroup) {
+	var text = "Plural";
+	var root = inflectionGroup.root;
+	var suffixes = inflectionGroup.sufficies || {};
+
+	var articles = PLURAL_ARTICLES;
+
+	text = text + ": " + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
+	text = text + ", " + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
+	text = text + ", " + renderWordForm(articles['dative'], root, (suffixes.dative || [""]));
+	text = text + ", " + renderWordForm(articles['accusative'], root, (suffixes.accusative || [""]));
+	text = text + ".";
 	return text;
 };
 
@@ -78,14 +102,33 @@ var declineIntent = function (word) {
 		var result = "";
 		if (entry.singular && entry.singular.length > 0) {
 			for (var sindex = 0; sindex < entry.singular.length; sindex++) {
+				if (sindex > 0 ) {
+					result = result + " Alternative: ";
+				}
 				var inflectionGroup = entry.singular[sindex];
 				result = result + renderSingularInflectionGroup(inflectionGroup);
 			}
+		} else  {
+			result = result + "Kein Singular.";
+		}
+
+		result = result + " ";
+
+		if (entry.plural && entry.plural.length > 0) {
+			for (var sindex = 0; sindex < entry.plural.length; sindex++) {
+				if (sindex > 0 ) {
+					result = result + " Alternative: ";
+				}
+				var inflectionGroup = entry.plural[sindex];
+				result = result + renderPluralInflectionGroup(inflectionGroup);
+			}
+		} else  {
+			result = result + "Kein Plural.";
 		}
 
 		return result;
 	} else {
-		return "Das Wort " + word + " ist mir leider nicht bekannt";
+		return "Das Wort " + word + " ist mir leider nicht bekannt.";
 	}
 };
 
@@ -111,6 +154,29 @@ for (var index = 0; index < dataset.length; index++) {
 	var entry = dataset[index];
 	if (entry.word) {
 		entryByWord[entry.word] = entry;
+		if (!entry.plural || entry.plural.length === 0) {
+		//	console.log("Word " + entry.word + " has no plural forms.");
+		}
+/*		else
+		if (entry.plural.length === 0) {
+			console.log("Word " + entry.word + " has 0 plural forms.");
+		}
+		else if (entry.plural.length === 1) {
+			console.log("Word " + entry.word + " has 1 plural form.");
+		}
+		else */
+		else if (entry.plural.length === 2) {
+			console.log("Word " + entry.word + " has 2 plural forms.");
+		}
+		else if (entry.plural.length === 3) {
+			console.log("Word " + entry.word + " has 3 plural forms.");
+		}
+		else if (entry.plural.length === 4) {
+			console.log("Word " + entry.word + " has 4 plural forms.");
+		}
+		else if (entry.plural.length === 5) {
+			console.log("Word " + entry.word + " has 5 plural forms.");
+		}
 	}
 	else {
 		console.log("Invalid entry:");
