@@ -66,7 +66,6 @@ var renderSingularInflectionGroup = function(inflectionGroup) {
 	var suffixes = inflectionGroup.sufficies || {};
 
 	var articles = GRAMMATICAL_GENDER_ARTICLES[gender];
-	console.log(suffixes);
 
 	text = text + ": " + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
 	text = text + ", " + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
@@ -95,8 +94,6 @@ var declineIntent = function (word) {
 	console.log("Querying for [" + word + "].");
 	var entry = entryByWord[word];
 	console.log("Querying for [" + word + "] finished.");
-
-	console.log(entry);
 
 	if (entry) {
 		var result = "";
@@ -140,7 +137,7 @@ var handlers = {
 		this.emit('DeclineIntent');
 	},
 	'DeclineIntent': function () {
-		console.log(this.event.request.intent.slots.wort.value);
+		console.log(this.event.request.intent.slots.wort);
 		console.log("DeclineIntent");
 		var wort = this.event.request.intent.slots.wort.value;
 		this.emit(':tell', declineIntent(wort));
@@ -154,29 +151,6 @@ for (var index = 0; index < dataset.length; index++) {
 	var entry = dataset[index];
 	if (entry.word) {
 		entryByWord[entry.word] = entry;
-		if (!entry.plural || entry.plural.length === 0) {
-		//	console.log("Word " + entry.word + " has no plural forms.");
-		}
-/*		else
-		if (entry.plural.length === 0) {
-			console.log("Word " + entry.word + " has 0 plural forms.");
-		}
-		else if (entry.plural.length === 1) {
-			console.log("Word " + entry.word + " has 1 plural form.");
-		}
-		else if (entry.plural.length === 2) {
-			console.log("Word " + entry.word + " has 2 plural forms.");
-		}
-		else if (entry.plural.length === 3) {
-			console.log("Word " + entry.word + " has 3 plural forms.");
-		}
-*/
-		else if (entry.plural.length === 4) {
-			console.log("Word " + entry.word + " has 4 plural forms.");
-		}
-		else if (entry.plural.length === 5) {
-			console.log("Word " + entry.word + " has 5 plural forms.");
-		}
 	}
 	else {
 		console.log("Invalid entry:");
