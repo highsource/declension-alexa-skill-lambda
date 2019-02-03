@@ -21,9 +21,9 @@ module.exports =
 			},
 			"Chronometer - zwei singulare Formen": function(test) {
 				test.equal(query('Chronometer'),
-					'Singular, maskulin. Nominativ - der Chronometer. Genitiv - des Chronometers. Dativ - dem Chronometer. Akkusativ - den Chronometer.' +
-					' Alternative: ' +
 					'Singular, sächlich. Nominativ - das Chronometer. Genitiv - des Chronometers. Dativ - dem Chronometer. Akkusativ - das Chronometer.' +
+					' Alternative: ' +
+					'Singular, maskulin. Nominativ - der Chronometer. Genitiv - des Chronometers. Dativ - dem Chronometer. Akkusativ - den Chronometer.' +
 					' ' +
 					'Plural. Nominativ - die Chronometer. Genitiv - der Chronometer. Dativ - den Chronometern. Akkusativ - die Chronometer.'
 				);
@@ -31,31 +31,31 @@ module.exports =
 			},
 			"Dschungel - drei singulare Formen": function(test) {
 				test.equal(query('Dschungel'),
-					'Singular, sächlich. Nominativ - das Dschungel. Genitiv - des Dschungels. Dativ - dem Dschungel. Akkusativ - das Dschungel.' +
-					' Alternative: ' +
 					'Singular, maskulin. Nominativ - der Dschungel. Genitiv - des Dschungels. Dativ - dem Dschungel. Akkusativ - den Dschungel.' +
+					' Alternative: ' +
+					'Singular, sächlich. Nominativ - das Dschungel. Genitiv - des Dschungels. Dativ - dem Dschungel. Akkusativ - das Dschungel.' +
 					' Alternative: ' +
 					'Singular, feminin. Nominativ - die Dschungel. Genitiv - der Dschungel. Dativ - der Dschungel. Akkusativ - die Dschungel.' +
 					' ' +
-					'Plural. Nominativ - die Dschungeln. Genitiv - der Dschungeln. Dativ - den Dschungeln. Akkusativ - die Dschungeln.' +
+					'Plural. Nominativ - die Dschungel. Genitiv - der Dschungel. Dativ - den Dschungeln. Akkusativ - die Dschungel.' +
 					' Alternative: ' +
-					'Plural. Nominativ - die Dschungel. Genitiv - der Dschungel. Dativ - den Dschungeln. Akkusativ - die Dschungel.'
+					'Plural. Nominativ - die Dschungeln. Genitiv - der Dschungeln. Dativ - den Dschungeln. Akkusativ - die Dschungeln.'
 				);
 				test.done();
 			},
 			"Avis - vier singulare Formen": function(test) {
 				test.equal(query('Avis'),
-					'Singular, sächlich. Nominativ - das Avis. Genitiv - des Avis. Dativ - dem Avis. Akkusativ - das Avis.' +
-					' Alternative: ' +
 					'Singular, maskulin. Nominativ - der Avis. Genitiv - des Avis. Dativ - dem Avis. Akkusativ - den Avis.' +
 					' Alternative: ' +
-					'Singular, sächlich. Nominativ - das Avis. Genitiv - des Avises. Dativ - dem Avis. Akkusativ - das Avis.' +
+					'Singular, sächlich. Nominativ - das Avis. Genitiv - des Avis. Dativ - dem Avis. Akkusativ - das Avis.' +
 					' Alternative: ' +
 					'Singular, maskulin. Nominativ - der Avis. Genitiv - des Avises. Dativ - dem Avis. Akkusativ - den Avis.' +
-					' ' +
-					'Plural. Nominativ - die Avise. Genitiv - der Avise. Dativ - den Avisen. Akkusativ - die Avise.' +
 					' Alternative: ' +
-					'Plural. Nominativ - die Avis. Genitiv - der Avis. Dativ - den Avis. Akkusativ - die Avis.'
+					'Singular, sächlich. Nominativ - das Avis. Genitiv - des Avises. Dativ - dem Avis. Akkusativ - das Avis.' +
+					' ' +
+					'Plural. Nominativ - die Avis. Genitiv - der Avis. Dativ - den Avis. Akkusativ - die Avis.' +
+					' Alternative: ' +
+					'Plural. Nominativ - die Avise. Genitiv - der Avise. Dativ - den Avisen. Akkusativ - die Avise.'
 				);
 				test.done();
 			}
@@ -81,9 +81,9 @@ module.exports =
 				test.equal(query('Ross'),
 					'Singular, sächlich. Nominativ - das Ross. Genitiv - des Rosses. Dativ - dem Ross oder dem Rosse. Akkusativ - das Ross.' + 
 					' ' +
-					'Plural. Nominativ - die Rösser. Genitiv - der Rösser. Dativ - den Rössern. Akkusativ - die Rösser.' +
+					'Plural. Nominativ - die Rosse. Genitiv - der Rosse. Dativ - den Rossen. Akkusativ - die Rosse.' +
 					' Alternative: ' +
-					'Plural. Nominativ - die Rosse. Genitiv - der Rosse. Dativ - den Rossen. Akkusativ - die Rosse.'
+					'Plural. Nominativ - die Rösser. Genitiv - der Rösser. Dativ - den Rössern. Akkusativ - die Rösser.'
 				);
 				test.done();
 			},
@@ -91,11 +91,11 @@ module.exports =
 				test.equal(query('Kumpel'),
 					'Singular, maskulin. Nominativ - der Kumpel. Genitiv - des Kumpels. Dativ - dem Kumpel. Akkusativ - den Kumpel.' + 
 					' ' +
+					'Plural. Nominativ - die Kumpel. Genitiv - der Kumpel. Dativ - den Kumpeln. Akkusativ - die Kumpel.' +
+					' Alternative: ' +
 					'Plural. Nominativ - die Kumpels. Genitiv - der Kumpels. Dativ - den Kumpels. Akkusativ - die Kumpels.' +
 					' Alternative: ' +
-					'Plural. Nominativ - die Kumpeln. Genitiv - der Kumpeln. Dativ - den Kumpeln. Akkusativ - die Kumpeln.' +
-					' Alternative: ' +
-					'Plural. Nominativ - die Kumpel. Genitiv - der Kumpel. Dativ - den Kumpeln. Akkusativ - die Kumpel.'
+					'Plural. Nominativ - die Kumpeln. Genitiv - der Kumpeln. Dativ - den Kumpeln. Akkusativ - die Kumpeln.'
 				);
 				test.done();
 			},
@@ -103,11 +103,11 @@ module.exports =
 				test.equal(query('Staat'),
 					'Singular, maskulin. Nominativ - der Staat. Genitiv - des Staats oder des Staates. Dativ - dem Staat oder dem Staate. Akkusativ - den Staat.' + 
 					' ' +
+					'Plural. Nominativ - die Staaten. Genitiv - der Staaten. Dativ - den Staaten. Akkusativ - die Staaten.' +
+					' Alternative: ' +
 					'Plural. Nominativ - die Stäte. Genitiv - der Stäte. Dativ - den Stäten. Akkusativ - die Stäte.' +
 					' Alternative: ' +
 					'Plural. Nominativ - die Staat. Genitiv - der Staat. Dativ - den Staaten. Akkusativ - die Staat.' +
-					' Alternative: ' +
-					'Plural. Nominativ - die Staaten. Genitiv - der Staaten. Dativ - den Staaten. Akkusativ - die Staaten.' +
 					' Alternative: ' +
 					'Plural. Nominativ - die Staate. Genitiv - der Staate. Dativ - den Staaten. Akkusativ - die Staate.'
 				);

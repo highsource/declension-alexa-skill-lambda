@@ -68,7 +68,7 @@ var renderSingularInflectionGroup = function(inflectionGroup) {
 	var gender = inflectionGroup.gender;
 	text = text + ", " + GRAMMATICAL_GENDERS[gender];
 	var root = inflectionGroup.root;
-	var suffixes = inflectionGroup.sufficies || {};
+	var suffixes = inflectionGroup.suffixes || {};
 
 	var articles = GRAMMATICAL_GENDER_ARTICLES[gender];
 
@@ -83,7 +83,7 @@ var renderSingularInflectionGroup = function(inflectionGroup) {
 var renderPluralInflectionGroup = function(inflectionGroup) {
 	var text = "Plural";
 	var root = inflectionGroup.root;
-	var suffixes = inflectionGroup.sufficies || {};
+	var suffixes = inflectionGroup.suffixes || {};
 
 	var articles = PLURAL_ARTICLES;
 
@@ -140,7 +140,7 @@ exports.query = declineIntent;
 var handlers = {
 	'LaunchRequest': function () {
 		console.log("LaunchRequest");
-		this.emit('DeclineIntent');
+		this.emit(':ask', 'Welches Wort soll ich deklinieren?');
 	},
 	'DeclineIntent': function () {
 		console.log(this.event.request.intent.slots.wort);
