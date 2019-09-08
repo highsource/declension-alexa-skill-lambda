@@ -54,7 +54,7 @@ exports.handler = function(event, context, callback) {
 var renderWordForm = function(article, root, suffixes) {
 	var result = '';
 	for (var suffixIndex = 0; suffixIndex < suffixes.length; suffixIndex++) {
-		var suffix = suffixes[suffixIndex];
+		var suffix = suffixes[suffixIndex] === '-' ? '' : suffixes[suffixIndex];
 		if (suffixIndex > 0) {
 			result = result + ' oder ';
 		}
@@ -72,10 +72,10 @@ var renderSingularInflectionGroup = function(inflectionGroup) {
 
 	var articles = GRAMMATICAL_GENDER_ARTICLES[gender];
 
-	text = text + ". " + CASE_NAMES['nominative'] + ' - ' + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
-	text = text + ". " + CASE_NAMES['genitive']   + ' - ' + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
-	text = text + ". " + CASE_NAMES['dative']     + ' - ' + renderWordForm(articles['dative'], root, (suffixes.dative || [""]));
-	text = text + ". " + CASE_NAMES['accusative'] + ' - ' + renderWordForm(articles['accusative'], root, (suffixes.accusative || [""]));
+	text = text + ". " + CASE_NAMES['nominative'] + ' - ' + renderWordForm(articles['nominative'], root, (suffixes.nominative || ["-"]));
+	text = text + ". " + CASE_NAMES['genitive']   + ' - ' + renderWordForm(articles['genitive'], root, (suffixes.genitive || ["-"]));
+	text = text + ". " + CASE_NAMES['dative']     + ' - ' + renderWordForm(articles['dative'], root, (suffixes.dative || ["-"]));
+	text = text + ". " + CASE_NAMES['accusative'] + ' - ' + renderWordForm(articles['accusative'], root, (suffixes.accusative || ["-"]));
 	text = text + ".";
 	return text;
 };
@@ -87,10 +87,10 @@ var renderPluralInflectionGroup = function(inflectionGroup) {
 
 	var articles = PLURAL_ARTICLES;
 
-	text = text + ". " + CASE_NAMES['nominative'] + ' - ' + renderWordForm(articles['nominative'], root, (suffixes.nominative || [""]));
-	text = text + ". " + CASE_NAMES['genitive']   + ' - ' + renderWordForm(articles['genitive'], root, (suffixes.genitive || [""]));
-	text = text + ". " + CASE_NAMES['dative']     + ' - ' + renderWordForm(articles['dative'], root, (suffixes.dative || [""]));
-	text = text + ". " + CASE_NAMES['accusative'] + ' - ' + renderWordForm(articles['accusative'], root, (suffixes.accusative || [""]));
+	text = text + ". " + CASE_NAMES['nominative'] + ' - ' + renderWordForm(articles['nominative'], root, (suffixes.nominative || ["-"]));
+	text = text + ". " + CASE_NAMES['genitive']   + ' - ' + renderWordForm(articles['genitive'], root, (suffixes.genitive || ["-"]));
+	text = text + ". " + CASE_NAMES['dative']     + ' - ' + renderWordForm(articles['dative'], root, (suffixes.dative || ["-"]));
+	text = text + ". " + CASE_NAMES['accusative'] + ' - ' + renderWordForm(articles['accusative'], root, (suffixes.accusative || ["-"]));
 	text = text + ".";
 	return text;
 };
@@ -98,7 +98,7 @@ var renderPluralInflectionGroup = function(inflectionGroup) {
 var declineIntent = function (word) {
 	let key = word.toLowerCase();
 	console.log("Querying for [" + word + "] by key [" + key + "].");
-	var entry = entryByWord[key];
+	var entry = entryByWord[key].inflections[0];
 	console.log("Querying for [" + word + "] finished.");
 
 	if (entry) {
