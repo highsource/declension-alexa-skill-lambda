@@ -1,5 +1,6 @@
 'use strict';
-var APP_ID = 'amzn1.ask.skill.558a0429-eab4-4e1b-b7fd-0066954fc372';
+var APP_ID = process.env.APP_ID;
+console.log("APP_ID: " + APP_ID);
 var Alexa = require("alexa-sdk");
 var dataset = require("./dataset");
 const entryByWord = {};
