@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  AppId:
+    Type: String
+    Default: amzn1.ask.skill.558a0429-eab4-4e1b-b7fd-0066954fc372
+Resources:
+  DeutscheDeklinationInflectionTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: DeutscheDeklinationInflection
+      KeySchema:
+        - AttributeName: word
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: word
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+  DeutscheDeklinationLambdaCanLogPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: DeutscheDeklinationLambdaCanLogPolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
+  DeutscheDeklinationLambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: DeutscheDeklinationLambdaRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Ref DeutscheDeklinationLambdaCanLogPolicy
+  DeutscheDeklinationLambdaFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: DeutscheDeklinationLambdaFunction
+      Handler: "index.handler"
+      Role: !GetAtt DeutscheDeklinationLambdaRole.Arn
+      Code: 
+        S3Bucket: "deutschedeklination"
+        S3Key: "declension-alexa-skill-lambda.zip"
+      Runtime: "nodejs8.10"
+      Environment:
+        Variables:
+          APP_ID: !Ref AppId
+      MemorySize: 512
+  DeutscheDeklinationLambdaFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !GetAtt DeutscheDeklinationLambdaFunction.Arn
+      Principal: alexa-appkit.amazon.com
+      EventSourceToken: !Ref AppId
+Outputs:
+  DeutscheDeklinationInflectionTable:
+    Value: !Ref DeutscheDeklinationInflectionTable
+  DeutscheDeklinationInflectionTableArn:
+    Value: !GetAtt DeutscheDeklinationInflectionTable.Arn
+  DeutscheDeklinationLambdaFunctionArn:
+    Value: !GetAtt DeutscheDeklinationLambdaFunction.Arn
