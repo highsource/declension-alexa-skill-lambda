@@ -1,0 +1,56 @@
+1. "<das Wort>", optional mit einem Artikel.
+
+- Alexa, deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Haus.
+
+- Alexa, deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Das Haus.
+
+- Alexa, frage deutsche Deklination nach Haus.
+
+- Alexa, frage deutsche Deklination nach dem Haus.
+
+2. "dekliniere <das Wort>", optional mit einem Artikel.
+
+- Alexa, öffne deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Dekliniere Haus.
+
+- Alexa, öffne deutsche Deklination und dekliniere Haus.
+
+- Alexa, öffne deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Dekliniere das Haus.
+
+- Alexa, öffne deutsche Deklination und dekliniere das Haus.
+
+2a. "dekliniere <das/der/die/des/dem/den> Wort <das Wort>", optional mit einem Artikel.
+
+- Alexa, öffne deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Dekliniere das Wort Haus.
+
+- Alexa, öffne deutsche Deklination und dekliniere das Wort Haus.
+
+3. "schlage <das Wort> nach", optional mit einem Artikel.
+
+- Alexa, öffne deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Schlage Haus nach.
+
+- Alexa, öffne deutsche Deklination und schlage Haus nach.
+
+3a. "schlage <das/der/die/des/dem/den> Wort <das Wort> nach", optional mit einem Artikel.
+
+- Alexa, öffne deutsche Deklination.
+- Welches Wort soll ich deklinieren?
+- Schlage das Wort Haus nach.
+
+- Alexa, öffne deutsche Deklination und schlage das Wort Haus nach.
+
+4. "<dem/der/die/das/des/den> Wort <das Wort>", optional mit einem Artikel.
+
+- Alexa, frage deutsche Deklination nach dem Wort Haus.
+- Alexa, frage deutsche Deklination nach Wort Haus.
