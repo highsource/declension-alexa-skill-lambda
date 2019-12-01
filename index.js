@@ -1,8 +1,15 @@
 'use strict';
+
+var AWS = require("aws-sdk");
+AWS.config.update({
+  region: "eu-central-1"
+});
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+
 var APP_ID = process.env.APP_ID;
 console.log("APP_ID: " + APP_ID);
 var Alexa = require("alexa-sdk");
-var dataset = require("./dataset");
 const entryByWord = {};
 const GRAMMATICAL_GENDERS = {
 	"MASCULINE": "maskulin",
@@ -99,9 +106,28 @@ var renderPluralInflectionGroup = function(inflectionGroup) {
 var queryInflection = function(word, resolve, reject) {
 	let key = word.toLowerCase();
 	console.log("Querying for [" + word + "] by key [" + key + "].");
-	var inflection = entryByWord[key].inflections[0];
-	console.log("Querying for [" + word + "] finished:", JSON.stringify(inflection, null, 2));
-	resolve(inflection);
+	var params = {
+	    TableName : "DeutscheDeklinationInflection",
+	    KeyConditionExpression: "#word = :word",
+	    ExpressionAttributeNames:{
+	        "#word": "word"
+	    },
+	    ExpressionAttributeValues: {
+	        ":word": key
+	    }
+	};
+
+	docClient.query(params, function(err, data) {
+		if (err) {
+		        console.error("Query failed. Error:", JSON.stringify(err, null, 2));
+			reject(err);
+    		} else {
+        		console.log("Query succeeded. Result:", JSON.stringify(data, null, 2));
+        		data.Items.forEach(function(item) {
+            			resolve(item.inflections[0]);
+        		});
+    		}
+	});
 };
 
 var declineIntent = function (word, resolve, reject) {
@@ -133,7 +159,7 @@ var declineIntent = function (word, resolve, reject) {
 			} else  {
 				result = result + "Kein Plural.";
 			}
-			resolve("Erfolg! " + result);
+			resolve(result);
 		} else {
 			resolve("Das Wort " + word + " ist mir leider nicht bekannt.");
 		}
@@ -163,21 +189,13 @@ var handlers = {
 			that.emit(':tell', "Leider ist ein Fehler aufgetreten.");
 		};
 		declineIntent(wort, resolve, reject);
+	},
+	'AMAZON.HelpIntent': function () {
+		this.emit(':tell', "Der Skill dekliniert deutsche Substantive. Sie können ihn zum Beispiel wie folgt aufrufen: Alexa, öffne deutsche Deklination und dekliniere Haus.");
+		this.response.shouldEndSession = false;
+	},
+	'SessionEndedRequest': function () {
+		console.log("SessionEndedRequest");
+		console.log("Session ended.");
 	}
 };
-
-console.log("Dataset contains [" + dataset.length + "] entries.");
-
-console.log("Indexing dataset by word.");
-for (var index = 0; index < dataset.length; index++) {
-	var entry = dataset[index];
-	if (entry.word) {
-		let key = entry.word.toLowerCase();
-		entryByWord[key] = entry;
-	}
-	else {
-		console.log("Invalid entry:");
-		console.log(entry);
-	}
-}
-console.log("Indexing finished.");
