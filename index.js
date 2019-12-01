@@ -96,43 +96,50 @@ var renderPluralInflectionGroup = function(inflectionGroup) {
 	return text;
 };
 
-var declineIntent = function (word, resolve, reject) {
+var queryInflection = function(word, resolve, reject) {
 	let key = word.toLowerCase();
 	console.log("Querying for [" + word + "] by key [" + key + "].");
-	var entry = entryByWord[key].inflections[0];
-	console.log("Querying for [" + word + "] finished.");
+	var inflection = entryByWord[key].inflections[0];
+	console.log("Querying for [" + word + "] finished:", JSON.stringify(inflection, null, 2));
+	resolve(inflection);
+};
 
-	if (entry) {
-		var result = "";
-		if (entry.singular && entry.singular.length > 0) {
-			for (var sindex = 0; sindex < entry.singular.length; sindex++) {
-				if (sindex > 0 ) {
-					result = result + " Alternative: ";
+var declineIntent = function (word, resolve, reject) {
+	let handleResult = function(entry) {
+		if (entry) {
+			var result = "";
+			if (entry.singular && entry.singular.length > 0) {
+				for (var sindex = 0; sindex < entry.singular.length; sindex++) {
+					if (sindex > 0 ) {
+						result = result + " Alternative: ";
+					}
+					var inflectionGroup = entry.singular[sindex];
+					result = result + renderSingularInflectionGroup(inflectionGroup);
 				}
-				var inflectionGroup = entry.singular[sindex];
-				result = result + renderSingularInflectionGroup(inflectionGroup);
+			} else  {
+				result = result + "Kein Singular.";
 			}
-		} else  {
-			result = result + "Kein Singular.";
-		}
-
-		result = result + " ";
-
-		if (entry.plural && entry.plural.length > 0) {
-			for (var sindex = 0; sindex < entry.plural.length; sindex++) {
-				if (sindex > 0 ) {
-					result = result + " Alternative: ";
+        
+			result = result + " ";
+        
+			if (entry.plural && entry.plural.length > 0) {
+				for (var sindex = 0; sindex < entry.plural.length; sindex++) {
+					if (sindex > 0 ) {
+						result = result + " Alternative: ";
+					}
+					var inflectionGroup = entry.plural[sindex];
+					result = result + renderPluralInflectionGroup(inflectionGroup);
 				}
-				var inflectionGroup = entry.plural[sindex];
-				result = result + renderPluralInflectionGroup(inflectionGroup);
+			} else  {
+				result = result + "Kein Plural.";
 			}
-		} else  {
-			result = result + "Kein Plural.";
+			resolve("Erfolg! " + result);
+		} else {
+			resolve("Das Wort " + word + " ist mir leider nicht bekannt.");
 		}
-		resolve(result);
-	} else {
-		resolve("Das Wort " + word + " ist mir leider nicht bekannt.");
-	}
+	};
+
+	queryInflection(word, handleResult, reject);
 };
 
 exports.query = declineIntent;
