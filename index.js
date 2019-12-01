@@ -96,7 +96,7 @@ var renderPluralInflectionGroup = function(inflectionGroup) {
 	return text;
 };
 
-var declineIntent = function (word) {
+var declineIntent = function (word, resolve, reject) {
 	let key = word.toLowerCase();
 	console.log("Querying for [" + word + "] by key [" + key + "].");
 	var entry = entryByWord[key].inflections[0];
@@ -129,10 +129,9 @@ var declineIntent = function (word) {
 		} else  {
 			result = result + "Kein Plural.";
 		}
-
-		return result;
+		resolve(result);
 	} else {
-		return "Das Wort " + word + " ist mir leider nicht bekannt.";
+		resolve("Das Wort " + word + " ist mir leider nicht bekannt.");
 	}
 };
 
@@ -147,7 +146,16 @@ var handlers = {
 		console.log(this.event.request.intent.slots.wort);
 		console.log("DeclineIntent");
 		var wort = this.event.request.intent.slots.wort.value;
-		this.emit(':tell', declineIntent(wort));
+		let that = this;
+		let resolve = function(result)
+		{
+			that.emit(':tell', result);
+		};
+		let reject = function(err) {
+			console.error(err);
+			that.emit(':tell', "Leider ist ein Fehler aufgetreten.");
+		};
+		declineIntent(wort, resolve, reject);
 	}
 };
 
