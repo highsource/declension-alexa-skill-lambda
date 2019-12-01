@@ -29,6 +29,18 @@ Resources:
               - logs:CreateLogStream
               - logs:PutLogEvents
             Resource: "*"
+  DeutscheDeklinationLambdaCanQueryDynamoDBPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: DeutscheDeklinationLambdaCanQueryDynamoDBPolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action:
+              - dynamodb:Query
+            Resource: "arn:aws:dynamodb:eu-central-1:828500088888:table/DeutscheDeklinationInflection"
   DeutscheDeklinationLambdaRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -45,6 +57,7 @@ Resources:
               - "sts:AssumeRole"
       ManagedPolicyArns:
         - !Ref DeutscheDeklinationLambdaCanLogPolicy
+        - !Ref DeutscheDeklinationLambdaCanQueryDynamoDBPolicy
   DeutscheDeklinationLambdaFunction:
     Type: "AWS::Lambda::Function"
     Properties:
@@ -52,9 +65,9 @@ Resources:
       Handler: "index.handler"
       Role: !GetAtt DeutscheDeklinationLambdaRole.Arn
       Code: 
-        S3Bucket: "deutschedeklination"
+        S3Bucket: !Sub "${AWS::AccountId}-artifact-repository"
         S3Key: "declension-alexa-skill-lambda.zip"
-      Runtime: "nodejs8.10"
+      Runtime: "nodejs10.x"
       Environment:
         Variables:
           APP_ID: !Ref AppId
