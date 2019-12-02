@@ -53,6 +53,8 @@ const CASE_NAMES = {
 };
 
 exports.handler = function(event, context, callback) {
+	console.log("Event:");
+	console.log(JSON.stringify(event, null, 2));
 	var alexa = Alexa.handler(event, context);
 	alexa.appId = APP_ID;
 	alexa.registerHandlers(handlers);
@@ -190,12 +192,23 @@ var handlers = {
 		};
 		declineIntent(wort, resolve, reject);
 	},
-	'AMAZON.HelpIntent': function () {
-		this.emit(':tell', "Der Skill dekliniert deutsche Substantive. Sie können ihn zum Beispiel wie folgt aufrufen: Alexa, öffne deutsche Deklination und dekliniere Haus.");
-		this.response.shouldEndSession = false;
-	},
 	'SessionEndedRequest': function () {
 		console.log("SessionEndedRequest");
 		console.log("Session ended.");
-	}
+	},
+	'AMAZON.HelpIntent': function () {
+		console.log("AMAZON.HelpIntent");
+		this.emit(':tell', "Der Skill dekliniert deutsche Substantive. Sie können ihn zum Beispiel wie folgt aufrufen: Alexa, öffne deutsche Deklination und dekliniere Haus.");
+		this.response.shouldEndSession = false;
+	},
+        'AMAZON.StopIntent':  function() {
+		console.log("AMAZON.StopIntent");
+		this.emit(':tell', "Ok.");
+		this.response.shouldEndSession = false;
+        },
+        'AMAZON.CancelIntent':  function() {
+		console.log("AMAZON.CancelIntent");
+		this.emit(':tell', "Ok.");
+		this.response.shouldEndSession = false;
+        }
 };
