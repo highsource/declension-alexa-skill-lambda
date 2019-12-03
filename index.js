@@ -198,17 +198,14 @@ var handlers = {
 	},
 	'AMAZON.HelpIntent': function () {
 		console.log("AMAZON.HelpIntent");
-		this.emit(':tell', "Der Skill dekliniert deutsche Substantive. Sie können ihn zum Beispiel wie folgt aufrufen: Alexa, öffne deutsche Deklination und dekliniere Haus.");
-		this.response.shouldEndSession = false;
+		this.emit(':ask', "Der Skill dekliniert deutsche Substantive. Sie können ihn zum Beispiel wie folgt aufrufen: Alexa, öffne deutsche Deklination und dekliniere Haus. Welches Wort soll ich deklinieren?");
 	},
         'AMAZON.StopIntent':  function() {
 		console.log("AMAZON.StopIntent");
 		this.emit(':tell', "Ok.");
-		this.response.shouldEndSession = false;
         },
         'AMAZON.CancelIntent':  function() {
 		console.log("AMAZON.CancelIntent");
 		this.emit(':tell', "Ok.");
-		this.response.shouldEndSession = false;
         }
 };
